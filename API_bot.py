@@ -5,6 +5,7 @@ import rollbar
 import rollbar.contrib.flask
 from flask import Request
 from flask import got_request_exception
+import os
 
 app = Flask(__name__) 
 @app.before_first_request
