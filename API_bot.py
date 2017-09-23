@@ -32,7 +32,7 @@ class CustomRequest(Request):
 
 app.request_class = CustomRequest
 
-@app.route("/response/", methods=['GET'])
+@app.route("/response/", methods=['GET','POST'])
 def response():
 	m = request.get_json()
 	return m
