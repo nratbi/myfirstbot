@@ -36,8 +36,8 @@ app.request_class = CustomRequest
 @app.route("/response/", methods=['GET','POST'])
 def response():
 	m = request.get_json()
-	print(str(m['message']))
-	return jsonify({'retour':str(m['message'])})
+	print(m['message'])
+	return jsonify({'retour':m['message']})
 
 
 
