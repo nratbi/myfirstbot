@@ -1,32 +1,10 @@
  #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
-import pgdb
-import psycopg2
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from flask import jsonify, request, Flask
-from sklearn.externals import joblib
-from sklearn.feature_extraction import DictVectorizer
-import itertools
-import nltk
-from nltk.collocations import BigramCollocationFinder
-from nltk.metrics import BigramAssocMeasures
-from sklearn.linear_model import LogisticRegression
-from nltk.corpus import stopwords
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.feature_selection import SelectFromModel
-import csv
-import os
 import rollbar
 import rollbar.contrib.flask
 from flask import Request
 from flask import got_request_exception
-from bs4 import BeautifulSoup 
-import re
-from rq import Queue
-from worker import conn
-import time
-import datetime
-from dateutil import parser
 
 app = Flask(__name__) 
 @app.before_first_request
