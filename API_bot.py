@@ -36,7 +36,8 @@ app.request_class = CustomRequest
 @app.route("/response/", methods=['GET','POST'])
 def response():
 	m = request.get_json()
-	return m
+	print(m)
+	return jsonify(m)
 
 
 
