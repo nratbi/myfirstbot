@@ -14,6 +14,7 @@ def facebook_verification():
 	if len(c) > 0:
 		challenge_token = c[0]
 		return Response(challenge_token, status=200)
+	return Response('ok', status=200)
 
 @app.route("/response/", methods=['GET','POST'])
 def response():
