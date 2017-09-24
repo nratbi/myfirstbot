@@ -16,7 +16,7 @@ def response():
 	if 'game' in indicators:
 		find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}}])
 		computers_agg.insert(find_pc_gamer)
-		f = computers_agg.find({})
+		f = computers_agg.find({'$max':'gamer_rate'})
 		for item in f:
 			print(item)
 	return jsonify(m)
