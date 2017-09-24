@@ -56,11 +56,12 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-                    params = {
-                    "access_token": "EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
-                    } 
+                    # params = {
+                    # "access_token": "EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
+                    # } 
                     headers = {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization: Bearer" : "EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
                     }
                     content = json.dumps({
                     "query": message_text,
@@ -69,7 +70,7 @@ def webhook():
                     "contexts" : [],
                     "sessionId": "c2f3eb24-8ed5-42c3-9ec1-ee51f0bb607c"
                     })                   
-                    r = requests.get('https://api.api.ai/v1/query?v=20150910', params=params, headers=headers, data=content)
+                    r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
                         print(r.json())
                     send_message(sender_id, "roger that!")
