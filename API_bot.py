@@ -92,11 +92,14 @@ def response():
     computers = client["heroku_fkfhqw1w"].computers
     m = request.get_json()
     speech = ''
-    
+
     if m['result']['action'] == 'input.welcome':
         speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quel en sera votre utilisation ?"
     
     indicators = m['result']['parameters']   
+
+    if 'developper' in indicators:
+        speech = 'Mac Book for sure!'
 
     if 'game' in indicators:
         find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
