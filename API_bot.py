@@ -15,8 +15,14 @@ def response():
 	indicators = m['result']['parameters']
 	if 'game' in indicators:
 		find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
-		for item in find_pc_gamer:
-			print(item)
+		best_computers = {}
+		i = 0
+		while find_pc_gamer[i]['gamer_rate'] == find_pc_gamer[0]['gamer_rate']:
+			print(find_pc_gamer[i]['gamer_rate'])
+			best_computers[i]['name'] = find_pc_gamer[i]['name']
+			best_computers[i]['prix'] = find_pc_gamer[i]['prix']
+			i = i+1
+		print(best_computers)	
 	return jsonify(m)
 
 
