@@ -1,17 +1,16 @@
  #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
 from flask import jsonify, request, Flask
-import rollbar
-import rollbar.contrib.flask
 from flask import Request
-from flask import got_request_exception
 import os
 
 app = Flask(__name__) 
 @app.route("/response/", methods=['GET','POST'])
 def response():
 	m = request.get_json()
-	print(m['result']['parameters'])
+	indicators = m['result']['parameters']
+	if 'game' in indicators:
+		print('Le user est un gamer')
 	return jsonify(m)
 
 
