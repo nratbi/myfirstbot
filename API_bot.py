@@ -8,6 +8,7 @@ from bson.son import SON
 from flask import Response
 import sys
 import json
+import requests
 
 def send_message(recipient_id, message_text):
 
