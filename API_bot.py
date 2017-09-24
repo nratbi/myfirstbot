@@ -83,6 +83,8 @@ def response():
     m = request.get_json()
     print(m)
     indicators = m['result']['parameters']
+    if m['result']['action'] == 'input.welcome':
+        speech = m['result']['fulfillment']['speech']
     if 'game' in indicators:
         find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
         best_computers = {}
@@ -99,15 +101,15 @@ def response():
         for word in name_cheap[1:]:
             speech += "," + word
         speech += "!"
-        response = {
-        'speech': speech,
-        'displayText' : speech,
-        'data':None,
-        'contextOut' : None,
-        'source':'',
-        'followupEvent' : None
-        }
-        send_message(m['sender_id'], speech)
+    response = {
+    'speech': speech,
+    'displayText' : speech,
+    'data':None,
+    'contextOut' : None,
+    'source':'',
+    'followupEvent' : None
+    }
+    send_message(m['sender_id'], speech)
 
     return jsonify(response)
 
