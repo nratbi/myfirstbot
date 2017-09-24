@@ -70,7 +70,7 @@ def webhook():
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
                         r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = r.json())
-                        print(r2.json())
+                        print(r2.content)
                     send_message(sender_id, "roger that!")
 
     return "ok", 200
