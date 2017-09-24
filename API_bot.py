@@ -108,7 +108,7 @@ def response():
         'source':'',
         'followupEvent' : None
         }
-        # send_message(recipient_id, speech)
+        send_message(m['sender_id'], speech)
 
     return jsonify(response)
 
