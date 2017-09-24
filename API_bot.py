@@ -61,7 +61,7 @@ def webhook():
                     # } 
                     headers = {
                     "Content-Type": "application/json",
-                    "Authorization" : "EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
+                    "Authorization" : "Bearer:EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
                     }
                     content = json.dumps({
                     "query": message_text,
