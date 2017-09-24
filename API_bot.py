@@ -17,6 +17,7 @@ def response():
 		find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
 		best_computers = {}
 		i = 0
+		find_pc_gamer = find_pc_gamer.toArray()
 		while find_pc_gamer[i]['gamer_rate'] == find_pc_gamer[0]['gamer_rate']:
 			print(find_pc_gamer[i]['gamer_rate'])
 			best_computers[i]['name'] = find_pc_gamer[i]['name']
