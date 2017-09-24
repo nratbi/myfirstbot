@@ -16,7 +16,7 @@ def facebook_verification():
 		return Response(challenge_token, status=200)
 	return Response('ok', status=200)
 
-@app.route("/response/", methods=['GET','POST'])
+# @app.route("/response/", methods=['GET','POST'])
 def response():
 	client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
 	computers = client["heroku_fkfhqw1w"].computers
