@@ -72,8 +72,6 @@ def webhook():
                         send_json = r.json()
                         send_json['sender_id'] = sender_id
                         r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = send_json)
-                        if r2:
-                            print(r2.json())
                     send_message(sender_id, "roger that!")
 
     return "ok", 200
@@ -84,6 +82,7 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].computers
     m = request.get_json()
+    print(m)
     indicators = m['result']['parameters']
     if 'game' in indicators:
         find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
@@ -109,7 +108,6 @@ def response():
         'source':'',
         'followupEvent' : None
         }
-        print(response)
         # send_message(recipient_id, speech)
 
     return jsonify(response)
