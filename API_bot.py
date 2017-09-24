@@ -13,8 +13,7 @@ def response():
 	m = request.get_json()
 	indicators = m['result']['parameters']
 	if 'game' in indicators:
-		find_pc_gamer = computers.aggregate([{'$project':{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}}])
-		find_pc_gamer = find_pc_gamer.find({'$max':'gamer_rate'})
+		find_pc_gamer = computers.aggregate([{'$project':{'gamer_rate':{'$max':{'$add' :['$processeur_rate','$carte_graphique_rate']}}}}])
 		for item in find_pc_gamer:
 			print(item)
 	return jsonify(m)
