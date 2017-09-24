@@ -9,12 +9,12 @@ from flask import Response
 
 app = Flask(__name__) 
 @app.route("/", methods=['GET','POST'])
-def facebook_verification():
-	c = request.args.getlist('hub.challenge')
-	if len(c) > 0:
-		challenge_token = c[0]
-		return Response(challenge_token, status=200)
-	return Response('ok', status=200)
+# def facebook_verification():
+# 	c = request.args.getlist('hub.challenge')
+# 	if len(c) > 0:
+# 		challenge_token = c[0]
+# 		return Response(challenge_token, status=200)
+# 	return Response('ok', status=200)
 
 # @app.route("/response/", methods=['GET','POST'])
 def response():
