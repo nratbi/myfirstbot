@@ -10,7 +10,7 @@ from flask import Response
 app = Flask(__name__) 
 @app.route("/", methods=['GET','POST'])
 def facebook_verification():
-	print(request.args[1])
+	print(request.args.getlist('hub.challenge')[0])
 	return Response("ok", status=200, mimetype='application/json')
 
 @app.route("/response/", methods=['GET','POST'])
