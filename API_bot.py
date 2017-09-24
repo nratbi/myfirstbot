@@ -16,11 +16,11 @@ app = Flask(__name__)
 # 		return Response(challenge_token, status=200)
 # 	return Response('ok', status=200)
 
-# @app.route("/response/", methods=['GET','POST'])
 def response():
 	client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
 	computers = client["heroku_fkfhqw1w"].computers
 	m = request.get_json()
+	print(m)
 	indicators = m['result']['parameters']
 	if 'game' in indicators:
 		find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
