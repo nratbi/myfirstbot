@@ -69,7 +69,7 @@ def webhook():
                     "contexts" : [],
                     "sessionId": "c2f3eb24-8ed5-42c3-9ec1-ee51f0bb607c"
                     })                   
-                    r = requests.post('https://api.api.ai/v1/query?v=20150910', params=params, headers=headers, data=content)
+                    r = requests.get('https://api.api.ai/v1/query?v=20150910', params=params, headers=headers, data=content)
                     if r:
                         print(r.json())
                     send_message(sender_id, "roger that!")
