@@ -69,8 +69,11 @@ def webhook():
                     })                   
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
-                        r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = r.json())
-                        print(r2.content)
+                        send_json = r.json()
+                        send_json['sender_id'] = sender_id
+                        r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = send_json)
+                        if r2:
+                            print(r2.json())
                     send_message(sender_id, "roger that!")
 
     return "ok", 200
@@ -81,7 +84,6 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].computers
     m = request.get_json()
-    print('**************')
     indicators = m['result']['parameters']
     if 'game' in indicators:
         find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
@@ -93,7 +95,6 @@ def response():
             best_computers[i]['nom'] = find_pc_gamer[i]['nom']
             best_computers[i]['prix'] = find_pc_gamer[i]['prix']
             i = i+1
-        print(best_computers)
         best_cheap = min(best_computers[k]['prix'] for k in range(len(best_computers.keys())))
         name_cheap = [best_computers[k]['nom'] for k in range(len(best_computers.keys())) if best_computers[k]['prix'] == best_cheap]
         speech = "Hum..Je vois. J'ai l'ordinateur qu'il vous faut : "+name_cheap[0]
