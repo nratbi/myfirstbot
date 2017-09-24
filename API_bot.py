@@ -66,6 +66,7 @@ def webhook():
                     "query": message_text,
                     "timezone": "Europe/Paris",
                     "lang": "fr",
+                    "contexts" : [],
                     "sessionId": "c2f3eb24-8ed5-42c3-9ec1-ee51f0bb607c"
                     })                   
                     r = requests.post('https://api.api.ai/v1/query?v=20150910', params=params, headers=headers, data=content)
