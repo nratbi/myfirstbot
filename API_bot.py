@@ -71,13 +71,15 @@ def webhook():
                     }
                     headers2 = {
                     "Content-Type": "application/json"
-                    }
-                    a = requests.get('https://graph.facebook.com/v2.10/1534064586679215',params=params2,headers=headers2)
-                    print(a.content)                
+                    }              
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
                         send_json = r.json()
                         send_json['sender_id'] = sender_id
+                        a = requests.get('https://graph.facebook.com/v2.10/'+sender_id,params=params2,headers=headers2)
+                        if a:
+                            send_json['first_name'] = a['first_name']
+                            send_json['last_name'] = a['last_name']
                         r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = send_json)
 
     return "ok", 200
@@ -90,7 +92,7 @@ def response():
     m = request.get_json()
     indicators = m['result']['parameters']
     if m['result']['action'] == 'input.welcome':
-        speech = m['result']['fulfillment']['speech']
+        speech = 'Bonjour'+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quel en sera votre utilisation ?"
     if 'game' in indicators:
         find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
         best_computers = {}
