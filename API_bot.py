@@ -26,7 +26,8 @@ def response():
 		print(best_computers)
 		best_cheap = min(best_computers[k]['prix'] for k in range(len(best_computers.keys())))
 		name_cheap = [best_computers[k]['nom'] for k in range(len(best_computers.keys())) if best_computers[k]['prix'] == best_cheap]
-		print(name_cheap)
+		str_best = [','.join(x) for x in name_cheap]
+		print(str_best)
 	return jsonify(m)
 
 
