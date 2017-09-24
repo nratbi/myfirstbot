@@ -19,6 +19,7 @@ def response():
 		i = 0
 		find_pc_gamer = list(find_pc_gamer)
 		while find_pc_gamer[i]['gamer_rate'] == find_pc_gamer[0]['gamer_rate']:
+			best_computers[i] = {}
 			print(find_pc_gamer[i]['gamer_rate'])
 			best_computers[i]['nom'] = find_pc_gamer[i]['nom']
 			best_computers[i]['prix'] = find_pc_gamer[i]['prix']
