@@ -4,7 +4,6 @@ from flask import jsonify, request, Flask
 from flask import Request
 import os
 from pymongo import MongoClient
-from flask.ext.pymongo import PyMongo
 
 app = Flask(__name__) 
 @app.route("/response/", methods=['GET','POST'])
