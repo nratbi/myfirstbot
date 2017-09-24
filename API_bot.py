@@ -69,7 +69,7 @@ def webhook():
                     })                   
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
-                        r2 = requests.get('https://myfirstbot11.herokuapp.com/response/', json = r.json())
+                        r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = r.json())
                         print(r2.content)
                     send_message(sender_id, "roger that!")
 
@@ -81,7 +81,7 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].computers
     m = request.get_json()
-    print(m)
+    print('**************')
     indicators = m['result']['parameters']
     if 'game' in indicators:
         find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
