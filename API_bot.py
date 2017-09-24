@@ -4,6 +4,7 @@ from flask import jsonify, request, Flask
 from flask import Request
 import os
 from pymongo import MongoClient
+from bson.son import SON
 
 app = Flask(__name__) 
 @app.route("/response/", methods=['GET','POST'])
@@ -13,7 +14,7 @@ def response():
 	m = request.get_json()
 	indicators = m['result']['parameters']
 	if 'game' in indicators:
-		find_pc_gamer = computers.aggregate([{'$sort':{'gamer_rate':True}},{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}}])
+		find_pc_gamer = computers.aggregate([{'$sort':SON([("gamer_rate", 1)])},{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}}])
 		for item in find_pc_gamer:
 			print(item)
 	return jsonify(m)
