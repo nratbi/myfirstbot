@@ -63,7 +63,7 @@ def webhook():
                     "Content-Type": "application/json"
                     }
                     content = json.dumps({
-                    "query": :message_text,
+                    "query": message_text,
                     "timezone": "Europe/Paris",
                     "lang": "fr",
                     "sessionId": "c2f3eb24-8ed5-42c3-9ec1-ee51f0bb607c"
