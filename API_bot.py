@@ -14,7 +14,7 @@ def response():
 	indicators = m['result']['parameters']
 	if 'game' in indicators:
 		find_pc_gamer = computers.aggregate([{'$project':{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}}])
-		find_pc_gamer = computers.update({},{'$set':{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},multi=True, upsert = True)
+		find_pc_gamer = computers.update({},{'$set':{'$gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},multi=True, upsert = True)
 		for item in find_pc_gamer:
 			print(item)
 	return jsonify(m)
