@@ -103,22 +103,6 @@ def response():
 		'followupEvent' : None
 		}
 		print(response)
-		params = {
-        "access_token": "EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
-    	}
-    	headers = {
-        "Content-Type": "application/json"
-    	}
-    	data = json.dumps({
-        "recipient": {
-            "id": recipient_id
-        },
-        "message": {
-            "text": speech
-        }
-    	})
-    	r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
-
 
 	return jsonify(response)
 
