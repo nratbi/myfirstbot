@@ -76,10 +76,10 @@ def webhook():
                     if r:
                         send_json = r.json()
                         send_json['sender_id'] = sender_id
-                        a = requests.get('https://graph.facebook.com/v2.10/'+str(sender_id),params=params2,headers=headers2)
+                        a = requests.get('https://graph.facebook.com/v2.10/'+sender_id,params=params2,headers=headers2)
                         if a:
-                            send_json['first_name'] = str(a['first_name'])
-                            send_json['last_name'] = str(a['last_name'])
+                            send_json['first_name'] = a.json()['first_name']
+                            send_json['last_name'] = a.json()['last_name']
                         r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = send_json)
 
     return "ok", 200
