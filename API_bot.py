@@ -4,12 +4,13 @@ from flask import jsonify, request, Flask
 from flask import Request
 import os
 from pymongo import MongoClient
+from flask.ext.pymongo import PyMongo
 
 app = Flask(__name__) 
 @app.route("/response/", methods=['GET','POST'])
 def response():
-	client = MongoClient(host=['localhost:27017'])
-	computers = client["admin"].computers
+	client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
+	computers = client["heroku_fkfhqw1w"].computers
 	m = request.get_json()
 	indicators = m['result']['parameters']
 	if 'game' in indicators:
