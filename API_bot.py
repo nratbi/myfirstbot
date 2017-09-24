@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route("/response/", methods=['GET','POST'])
 def response():
 	m = request.get_json()
-	print(m)
+	print(m['parameters'])
 	return jsonify(m)
 
 
