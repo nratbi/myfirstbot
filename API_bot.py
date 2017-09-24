@@ -29,7 +29,7 @@ import requests
 #     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
 
 
-# app = Flask(__name__) 
+app = Flask(__name__) 
 # @app.route("/", methods=['GET'])
 # def verify():
 #     # when the endpoint is registered as a webhook, it must echo back
