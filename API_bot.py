@@ -52,7 +52,6 @@ def webhook():
             for messaging_event in entry["messaging"]:
 
                 if messaging_event.get("message"):  # someone sent us a message
-                    print(messaging_event)
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
@@ -66,7 +65,10 @@ def webhook():
                     "lang": "fr",
                     "contexts" : [],
                     "sessionId": "c2f3eb24-8ed5-42c3-9ec1-ee51f0bb607c"
-                    })                   
+                    })
+                    a = requests.post('https://graph.facebook.com/1534064586679215?fields=name',headers=headers)
+                    if a:
+                        print(a.json())                
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
                         send_json = r.json()
@@ -81,6 +83,7 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].computers
     m = request.get_json()
+    print(m)
     indicators = m['result']['parameters']
     if m['result']['action'] == 'input.welcome':
         speech = m['result']['fulfillment']['speech']
