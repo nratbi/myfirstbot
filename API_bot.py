@@ -72,7 +72,7 @@ def webhook():
                     headers2 = {
                     "Content-Type": "application/json"
                     }
-                    a = requests.post('https://graph.facebook.com/v2.6/1534064586679215',params=params2,headers=headers2)
+                    a = requests.get('https://graph.facebook.com/v2.10/1534064586679215',params=params2,headers=headers2)
                     print(a.content)                
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
