@@ -5,8 +5,13 @@ from flask import Request
 import os
 from pymongo import MongoClient
 from bson.son import SON
+from flask import Response
 
 app = Flask(__name__) 
+@app.route("/", methods=['GET','POST'])
+def facebook_verification():
+	return Response("ok", status=200, mimetype='application/json')
+
 @app.route("/response/", methods=['GET','POST'])
 def response():
 	client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
