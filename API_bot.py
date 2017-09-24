@@ -92,7 +92,7 @@ def response():
     m = request.get_json()
     indicators = m['result']['parameters']
     if m['result']['action'] == 'input.welcome':
-        speech = 'Bonjour'+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quel en sera votre utilisation ?"
+        speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quel en sera votre utilisation ?"
     if 'game' in indicators:
         find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
         best_computers = {}
