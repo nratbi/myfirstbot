@@ -72,7 +72,6 @@ def webhook():
                         send_json = r.json()
                         send_json['sender_id'] = sender_id
                         r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = send_json)
-                    send_message(sender_id, "roger that!")
 
     return "ok", 200
 
