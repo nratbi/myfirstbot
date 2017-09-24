@@ -66,7 +66,13 @@ def webhook():
                     "contexts" : [],
                     "sessionId": "c2f3eb24-8ed5-42c3-9ec1-ee51f0bb607c"
                     })
-                    a = requests.post('https://graph.facebook.com/1534064586679215?fields=name',headers=headers)
+                    params2 = {
+                    "access_token": "EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
+                    }
+                    headers2 = {
+                    "Content-Type": "application/json"
+                    }
+                    a = requests.post('https://graph.facebook.com/1534064586679215?fields=name',params=params2,headers=headers2)
                     if a:
                         print(a.json())                
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
@@ -83,7 +89,6 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].computers
     m = request.get_json()
-    print(m)
     indicators = m['result']['parameters']
     if m['result']['action'] == 'input.welcome':
         speech = m['result']['fulfillment']['speech']
