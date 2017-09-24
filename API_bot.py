@@ -26,10 +26,10 @@ def response():
 		print(best_computers)
 		best_cheap = min(best_computers[k]['prix'] for k in range(len(best_computers.keys())))
 		name_cheap = [best_computers[k]['nom'] for k in range(len(best_computers.keys())) if best_computers[k]['prix'] == best_cheap]
-		sentence = name_cheap[0]
+		sentence = "Hum..Je vois. J'ai l'ordinateur qu'il vous faut :"+name_cheap[0]
 		for word in name_cheap[1:]:
 			sentence += "," + word
-		sentence += "."
+		sentence += "!"
 		print(sentence)
 	return jsonify(m)
 
