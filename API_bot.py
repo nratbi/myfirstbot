@@ -10,12 +10,14 @@ app = Flask(__name__)
 def response():
 	client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
 	computers = client["heroku_fkfhqw1w"].computers
+	computers_agg = client["heroku_fkfhqw1w"].computers_agg
 	m = request.get_json()
 	indicators = m['result']['parameters']
 	if 'game' in indicators:
-		# find_pc_gamer = computers.aggregate([{'$project':{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}}])
 		find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}}])
-		for item in find_pc_gamer:
+		computers_agg.insert(find_pc_gamer)
+		f = computers_agg.find({})
+		for item in f:
 			print(item)
 	return jsonify(m)
 
