@@ -11,16 +11,12 @@ import sys
 import json
 import requests
 import pandas as pd
+import numpy as np
 import numbers
 
 def calculate_utility(weights, vector, maxs_criteria, mins_criteria):
-    utility_vector = [0]*len(vector)
-    for i in range(len(vector)):
-        if vector[i] != float('nan'): 
-            utility_vector[i] = (weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i])
-        else:
-            utility_vector[i] = 0 
-    utility = sum(utility_vector)
+    utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
+    utility = np.nansum(utility_vector)
     return utility
 
 def send_message(recipient_id, message_text):
