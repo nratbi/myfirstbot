@@ -22,7 +22,7 @@ def calculate_utility(weights, vector, mins_criteria, maxs_criteria, sign_utilit
         if sign_utility[i] == 1:
             utility_vector[i] = (weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i])
         else : 
-            utility_vector[i] = (weights[i]/sum(weights))*(maxs_criteria - vector[i])/(maxs_criteria[i]-mins_criteria[i])
+            utility_vector[i] = (weights[i]/sum(weights))*(maxs_criteria[i] - vector[i])/(maxs_criteria[i]-mins_criteria[i])
     utility = np.nansum(utility_vector)
     return utility
 
@@ -152,7 +152,7 @@ def response():
             if 'type' in indicators and indicators['type'] != '':
                 weight_poids = 4
                 weight_autonomie = 4
-                weight_taille_ecran = 1
+                weight_taille_ecran = 3
                 find_pc_gamer = pd.DataFrame(list(computers.find({'type':'portable'})))
                 d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
                 sign_utility = [-1,1,1,1,1,-1,1,-1]
