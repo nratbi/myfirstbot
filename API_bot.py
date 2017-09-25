@@ -141,14 +141,14 @@ def response():
                 weight_autonomie = 0
                 weight_taille_ecran = 3
                 find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
-                
+
             elif 'type' in indicators and indicators['type'] != '':
                 weight_poids = 4
                 weight_autonomie = 4
                 weight_taille_ecran = 1
-                find_pc_gamer = computers.find({'type':'portable'})
+                find_pc_gamer = pd.DataFrame(list(computers.find({'type':'portable'})))
             else :
-                find_pc_gamer = computers.find({})
+                find_pc_gamer = pd.DataFrame(list(computers.find({})))
 
             weights = [weight_taille_ecran,weight_processeur,weight_RAM,weight_stockage,weight_carte_graphique,weight_poids,weight_autonomie,weight_prix]
 
