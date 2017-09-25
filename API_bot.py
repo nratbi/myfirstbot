@@ -11,6 +11,7 @@ import sys
 import json
 import requests
 import pandas as pd
+import numbers
 
 def calculate_utility(weights, vector, maxs_criteria, mins_criteria):
     utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
@@ -118,6 +119,8 @@ def response():
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
                     mins_criteria = [min(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
                     maxs_criteria = [max(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
+                    mins_criteria = [alpha for alpha in mins_criteria if isinstance(alpha, numbers.Number)]
+                    maxs_criteria = [alpha for alpha in maxs_criteria if isinstance(alpha, numbers.Number)]
                     print(mins_criteria)
                     print(maxs_criteria)
                     # utilities = find_pc_gamer.apply(lambda x : calculate_utility(weights,x, mins_criteria, maxs_criteria))
