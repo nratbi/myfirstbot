@@ -129,9 +129,12 @@ def response():
                     name_best = find_pc_gamer[find_pc_gamer['global_utility'] == max(utilities)]['nom']
                     name_best = list(name_best)
                     list_names = name_best[0]
-                    for item in list(name_best):
+                    for item in name_best[1:]:
                         list_names += ', '+item
-                    speech = "Humm..Je vois. J'ai "+len(list_names)+" ordinateurs à vous proposer : "+list_names+" !" 
+                    if len(list_names) == 1:
+                        speech = "Humm..Je vois. J'ai l'ordinateur qu'il vous faut : "+list_names+" !"
+                    else : 
+                        speech = "Humm..Je vois. J'ai "+str(len(list_names))+" ordinateurs à vous proposer : "+list_names+" !" 
                 elif 'type' in indicators and indicators['type'] != '':
                     find_pc_gamer = computers.find({'type':'portable'})
                     speech = 'Youpi!'
