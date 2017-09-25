@@ -113,21 +113,28 @@ def response():
                 speech = 'Mac Book for sure!'
 
             if 'game' in indicators and indicators['game'] != '':
-                find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur','$carte_graphique']}}},{'$sort':SON([("gamer_rate", -1)])}])
-                best_computers = {}
-                i = 0
-                find_pc_gamer = list(find_pc_gamer)
-                while find_pc_gamer[i]['gamer_rate'] == find_pc_gamer[0]['gamer_rate']:
-                    best_computers[i] = {}
-                    best_computers[i]['nom'] = find_pc_gamer[i]['nom']
-                    best_computers[i]['prix'] = find_pc_gamer[i]['prix']
-                    i = i+1
-                best_cheap = min(best_computers[k]['prix'] for k in range(len(best_computers.keys())))
-                name_cheap = [best_computers[k]['nom'] for k in range(len(best_computers.keys())) if best_computers[k]['prix'] == best_cheap]
-                speech = "Hum..Je vois. J'ai l'ordinateur qu'il vous faut : "+name_cheap[0]
-                for word in name_cheap[1:]:
-                    speech += "," + word
-                speech += "!"
+                if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
+                    find_pc_gamer = computers.find({'type':'fixe'})
+                elif 'type' in indicators and indicators['type'] != '':
+                    find_pc_gamer = computers.find({'type':'portable'})
+                else :
+                    speech = "C'est noté ! Euh..mais attendez, vous ne m'avez toujours pas dis : ordinateur fixe ou portable?"
+
+                # find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur','$carte_graphique']}}},{'$sort':SON([("gamer_rate", -1)])}])
+                # best_computers = {}
+                # i = 0
+                # find_pc_gamer = list(find_pc_gamer)
+                # while find_pc_gamer[i]['gamer_rate'] == find_pc_gamer[0]['gamer_rate']:
+                #     best_computers[i] = {}
+                #     best_computers[i]['nom'] = find_pc_gamer[i]['nom']
+                #     best_computers[i]['prix'] = find_pc_gamer[i]['prix']
+                #     i = i+1
+                # best_cheap = min(best_computers[k]['prix'] for k in range(len(best_computers.keys())))
+                # name_cheap = [best_computers[k]['nom'] for k in range(len(best_computers.keys())) if best_computers[k]['prix'] == best_cheap]
+                # speech = "Hum..Je vois. J'ai l'ordinateur qu'il vous faut : "+name_cheap[0]
+                # for word in name_cheap[1:]:
+                #     speech += "," + word
+                # speech += "!"
             response = {
             'speech': speech,
             'displayText' : speech,
