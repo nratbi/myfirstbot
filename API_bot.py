@@ -163,6 +163,7 @@ def response():
             maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()]
             utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria, sign_utility), axis = 1)
             find_pc_gamer['global_utility'] = utilities
+            print(find_pc_gamer)
             name_best = find_pc_gamer[find_pc_gamer['global_utility'] == max(utilities)]['nom']
             name_best = list(name_best)
             list_names = name_best[0]
