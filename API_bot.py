@@ -127,9 +127,11 @@ def response():
                     utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria), axis = 1)
                     find_pc_gamer['global_utility'] = utilities
                     name_best = find_pc_gamer[find_pc_gamer['global_utility'] == max(utilities)]['nom']
-                    print(find_pc_gamer)
-                    print(name_best)
-                    speech = 'MacBook for sure!'
+                    name_best = list(name_best)
+                    list_names = name_best[0]
+                    for item in list(name_best):
+                        list_names += ', '+item
+                    speech = "Humm..Je vois. J'ai "+len(list_names)+" ordinateurs à vous proposer : "+list_names+" !" 
                 elif 'type' in indicators and indicators['type'] != '':
                     find_pc_gamer = computers.find({'type':'portable'})
                     speech = 'Youpi!'
