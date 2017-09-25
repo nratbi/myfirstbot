@@ -144,8 +144,9 @@ def response():
             if 'prix' in indicators and indicators['prix'] != '':
                 weight_prix = 5 #si formulation du besoin d'un ordinateur pas cher => poids max = 5
             else : 
-                weight_prix = 2.5   #Il peut y avoir un troisième cas où l'individu est financièrement aisé (par exemple ici c'est le cas : ingénieur) 
-                                    # auquel cas on aurait un poids négligeable mais par soucis de simplification on ne considérera pas ce cas ici
+                weight_prix = 2.5   
+            #Il peut y avoir un troisième cas où l'individu est financièrement aisé (par exemple ici c'est le cas : ingénieur) 
+            # auquel cas on aurait un poids négligeable mais par soucis de simplification on ne considérera pas ce cas ici
 
             #Cas du gamer
             if 'game' in indicators and indicators['game'] != '':
