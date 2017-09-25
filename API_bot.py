@@ -104,13 +104,13 @@ def response():
             speech = ''
 
             if m['result']['action'] == 'input.welcome':
-                speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quel en sera votre utilisation ?"
+                speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Recherchez-vous un ordinateur fixe ou portable ?"
             
             indicators = m['result']['parameters']   
 
 
             if 'developper' in indicators and indicators['developper'] != '':
-                speech = 'Mac Book for sure!'
+                # speech = 'Mac Book for sure!'
 
             if 'game' in indicators and indicators['game'] != '':
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
@@ -119,6 +119,7 @@ def response():
                     print(find_pc_gamer)
                 elif 'type' in indicators and indicators['type'] != '':
                     find_pc_gamer = computers.find({'type':'portable'})
+                    speech = 'Youpi!'
                 else :
                     find_pc_gamer = computers.find({})
 
