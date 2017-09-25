@@ -110,17 +110,22 @@ def response():
                 speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quelle en sera votre utilisation ? Recherchez-vous un ordinateur fixe ou portable ?"
             
             indicators = m['result']['parameters']   
-            weight_taille_ecran = 1
-            weight_processeur = 1
-            weight_RAM = 1
-            weight_stockage = 1
-            weight_carte_graphique = 1
-            weight_prix = 1
-            weight_poids = 1
-            weight_autonomie = 1
+            weight_taille_ecran = 2.5
+            weight_processeur = 2.5
+            weight_RAM = 2.5
+            weight_stockage = 2.5
+            weight_carte_graphique = 2.5
+            weight_prix = 2.5
+            weight_poids = 2.5
+            weight_autonomie = 2.5
 
             if 'developper' in indicators and indicators['developper'] != '':
-                speech = 'Mac Book for sure!'
+                weight_RAM = 5
+                weight_stockage = 5
+                weight_prix = 2
+                weight_processeur = 3
+                weight_taille_ecran = 2
+                weight_carte_graphique = 1
 
             if 'prix' in indicators and indicators['prix'] != '':
                 weight_prix = 5
@@ -135,28 +140,30 @@ def response():
             if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                 weight_poids = 0
                 weight_autonomie = 0
-                weights = [weight_taille_ecran,weight_processeur,weight_RAM,weight_stockage,weight_carte_graphique,weight_poids,weight_autonomie,weight_prix]
-                print(weights)
                 find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
-                d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
-                mins_criteria = [np.nansum(min(d[str(key)])) for key in d.keys()]
-                maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()]
-                utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria), axis = 1)
-                find_pc_gamer['global_utility'] = utilities
-                name_best = find_pc_gamer[find_pc_gamer['global_utility'] == max(utilities)]['nom']
-                name_best = list(name_best)
-                list_names = name_best[0]
-                for item in name_best[1:]:
-                    list_names += ', '+item
-                if len(name_best) == 1:
-                    speech = "Humm..Je vois. J'ai l'ordinateur qu'il vous faut : "+list_names+" !"
-                else : 
-                    speech = "Humm..Je vois. J'ai "+str(len(name_best))+" ordinateurs à vous proposer : "+list_names+" !" 
             elif 'type' in indicators and indicators['type'] != '':
+                weight_poids = 4
+                weight_autonomie = 4
                 find_pc_gamer = computers.find({'type':'portable'})
-                speech = 'Youpi!'
             else :
                 find_pc_gamer = computers.find({})
+
+            weights = [weight_taille_ecran,weight_processeur,weight_RAM,weight_stockage,weight_carte_graphique,weight_poids,weight_autonomie,weight_prix]
+
+            d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
+            mins_criteria = [np.nansum(min(d[str(key)])) for key in d.keys()]
+            maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()]
+            utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria), axis = 1)
+            find_pc_gamer['global_utility'] = utilities
+            name_best = find_pc_gamer[find_pc_gamer['global_utility'] == max(utilities)]['nom']
+            name_best = list(name_best)
+            list_names = name_best[0]
+            for item in name_best[1:]:
+                list_names += ', '+item
+            if len(name_best) == 1:
+                speech = "Humm..Je vois. J'ai l'ordinateur qu'il vous faut : "+list_names+" !"
+            else : 
+                speech = "Humm..Je vois. J'ai "+str(len(name_best))+" ordinateurs à vous proposer : "+list_names+" !" 
 
             response = {
             'speech': speech,
