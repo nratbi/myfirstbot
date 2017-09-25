@@ -16,10 +16,8 @@ import numbers
 import math
 
 def calculate_utility(weights, vector, mins_criteria, maxs_criteria):
-    print(vector)
     utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
     utility = np.nansum(utility_vector)
-    print(utility_vector)
     return utility
 
 def send_message(recipient_id, message_text):
@@ -131,11 +129,10 @@ def response():
                     list_names = name_best[0]
                     for item in name_best[1:]:
                         list_names += ', '+item
-                    print(list_names)
                     if len(list_names) == 1:
                         speech = "Humm..Je vois. J'ai l'ordinateur qu'il vous faut : "+list_names+" !"
                     else : 
-                        speech = "Humm..Je vois. J'ai "+str(len(list_names))+" ordinateurs à vous proposer : "+list_names+" !" 
+                        speech = "Humm..Je vois. J'ai "+str(len(name_best))+" ordinateurs à vous proposer : "+list_names+" !" 
                 elif 'type' in indicators and indicators['type'] != '':
                     find_pc_gamer = computers.find({'type':'portable'})
                     speech = 'Youpi!'
