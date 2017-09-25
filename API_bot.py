@@ -117,7 +117,7 @@ def response():
                 weights = [3,5,3,3,5,0,0,4]
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
-                    del find_pc_gamer['type'],find_pc_gamer['autonomie'], find_pc_gamer['poids']
+                    del find_pc_gamer['type']
                     mins_criteria = [min(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
                     maxs_criteria = [max(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
                     mins_criteria = [alpha for alpha in mins_criteria if isinstance(alpha, numbers.Number)]
