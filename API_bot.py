@@ -10,6 +10,7 @@ from flask import Response
 import sys
 import json
 import requests
+import pandas as pd
 
 def calculate_utility(weights, vector, maxs_criteria, mins_criteria):
     utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
