@@ -15,8 +15,9 @@ import numpy as np
 import numbers
 
 def calculate_utility(weights, vector, maxs_criteria, mins_criteria):
-    utility_vector = [(weights[i]/sum(weights))*(vector[i]-np.nansum(mins_criteria[i]))/(np.nansum(maxs_criteria[i])-np.nansum(mins_criteria[i])) for i in range(len(vector))]
-    utility = np.nansum(utility_vector)
+    utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
+    utility = sum(utility_vector)
+    print(utility_vector)
     return utility
 
 def send_message(recipient_id, message_text):
@@ -119,8 +120,8 @@ def response():
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
                     d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
-                    mins_criteria = [min(d[str(key)]) for key in d.keys()]
-                    maxs_criteria = [max(d[str(key)]) for key in d.keys()]
+                    mins_criteria = [np.nansum(min(d[str(key)])) for key in d.keys()]
+                    maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()]
                     print(mins_criteria)
                     print(maxs_criteria)
                     # mins_criteria = [alpha for alpha in mins_criteria if isinstance(alpha, numbers.Number)]
