@@ -114,18 +114,17 @@ def response():
                 speech = 'Mac Book for sure!'
 
             if 'game' in indicators and indicators['game'] != '':
-                weights = [3,5,3,3,5,0,0,4]
+                weights = [3,0,5,3,0,4,5,3]
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
-                    del find_pc_gamer['type']
                     mins_criteria = [min(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
                     maxs_criteria = [max(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
                     mins_criteria = [alpha for alpha in mins_criteria if isinstance(alpha, numbers.Number)]
                     maxs_criteria = [alpha for alpha in maxs_criteria if isinstance(alpha, numbers.Number)]
                     print(mins_criteria)
                     print(maxs_criteria)
-                    # utilities = find_pc_gamer.apply(lambda x : calculate_utility(weights,x, mins_criteria, maxs_criteria))
-                    # find_pc_gamer['global_utility'] = utilities
+                    utilities = find_pc_gamer.apply(lambda x : calculate_utility(weights,x, mins_criteria, maxs_criteria))
+                    find_pc_gamer['global_utility'] = utilities
                     print(find_pc_gamer)
                     speech = 'MacBook for sure!'
                 elif 'type' in indicators and indicators['type'] != '':
@@ -134,21 +133,6 @@ def response():
                 else :
                     find_pc_gamer = computers.find({})
 
-                # find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur','$carte_graphique']}}},{'$sort':SON([("gamer_rate", -1)])}])
-                # best_computers = {}
-                # i = 0
-                # find_pc_gamer = list(find_pc_gamer)
-                # while find_pc_gamer[i]['gamer_rate'] == find_pc_gamer[0]['gamer_rate']:
-                #     best_computers[i] = {}
-                #     best_computers[i]['nom'] = find_pc_gamer[i]['nom']
-                #     best_computers[i]['prix'] = find_pc_gamer[i]['prix']
-                #     i = i+1
-                # best_cheap = min(best_computers[k]['prix'] for k in range(len(best_computers.keys())))
-                # name_cheap = [best_computers[k]['nom'] for k in range(len(best_computers.keys())) if best_computers[k]['prix'] == best_cheap]
-                # speech = "Hum..Je vois. J'ai l'ordinateur qu'il vous faut : "+name_cheap[0]
-                # for word in name_cheap[1:]:
-                #     speech += "," + word
-                # speech += "!"
             response = {
             'speech': speech,
             'displayText' : speech,
