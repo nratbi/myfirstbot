@@ -122,16 +122,15 @@ def response():
             if 'developper' in indicators and indicators['developper'] != '':
                 weight_RAM = 5
                 weight_stockage = 5
-                weight_prix = 2
                 weight_processeur = 3
-                weight_taille_ecran = 2
                 weight_carte_graphique = 1
 
             if 'prix' in indicators and indicators['prix'] != '':
                 weight_prix = 5
+            else : 
+                weight_prix = 2
 
             if 'game' in indicators and indicators['game'] != '':
-                weight_taille_ecran = 3
                 weight_processeur = 5
                 weight_RAM = 3
                 weight_stockage = 3
@@ -140,10 +139,13 @@ def response():
             if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                 weight_poids = 0
                 weight_autonomie = 0
+                weight_taille_ecran = 3
                 find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
+                
             elif 'type' in indicators and indicators['type'] != '':
                 weight_poids = 4
                 weight_autonomie = 4
+                weight_taille_ecran = 1
                 find_pc_gamer = computers.find({'type':'portable'})
             else :
                 find_pc_gamer = computers.find({})
