@@ -15,7 +15,6 @@ import numpy as np
 import numbers
 
 def calculate_utility(weights, vector, maxs_criteria, mins_criteria):
-    print(vector)
     utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
     utility = sum(utility_vector)
     return utility
@@ -124,7 +123,7 @@ def response():
                     maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()]
                     print(mins_criteria)
                     print(maxs_criteria)
-                    utilities = d.apply(lambda x : calculate_utility(weights,x, mins_criteria, maxs_criteria))
+                    utilities = d.apply(lambda x : calculate_utility(weights,x, mins_criteria, maxs_criteria), axis = 1)
                     find_pc_gamer['global_utility'] = utilities
                     print(find_pc_gamer)
                     speech = 'MacBook for sure!'
