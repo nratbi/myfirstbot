@@ -13,10 +13,11 @@ import requests
 import pandas as pd
 import numpy as np
 import numbers
+import math
 
 def calculate_utility(weights, vector, maxs_criteria, mins_criteria):
     for i in range(len(vector)):
-        if vector[i] == float('nan'):
+        if math.isnan(vector[i]) :
             vector[i] = 0
     utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
     utility = sum(utility_vector)

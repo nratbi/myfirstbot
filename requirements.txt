@@ -2,7 +2,6 @@ pyYAML==3.12
 gunicorn==19.7.1
 beautifulsoup4==4.6.0
 bs4==0.0.1
-nltk==3.2.2
 Flask==0.12.2
 numpy==1.13.0
 pandas==0.19.2
