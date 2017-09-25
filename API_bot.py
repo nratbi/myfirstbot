@@ -99,6 +99,7 @@ def response():
     m = request.get_json()
     if m:
         if 'sender_id' in m:
+            print(m)
             sender_id = m['sender_id']
             speech = ''
 
@@ -106,6 +107,7 @@ def response():
                 speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quel en sera votre utilisation ?"
             
             indicators = m['result']['parameters']   
+
 
             if 'developper' in indicators and indicators['developper'] != '':
                 speech = 'Mac Book for sure!'
