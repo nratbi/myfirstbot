@@ -103,7 +103,6 @@ def response():
     m = request.get_json()
     if m:
         if 'sender_id' in m:
-            print(m)
             sender_id = m['sender_id']
             speech = ''
 
