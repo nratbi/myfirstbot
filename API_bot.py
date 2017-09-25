@@ -159,7 +159,6 @@ def response():
 
             weights = [weight_taille_ecran,weight_processeur,weight_RAM,weight_stockage,weight_carte_graphique,weight_poids,weight_autonomie,weight_prix]
 
-            d = [1,1,1]
             mins_criteria = [np.nansum(min(d[str(key)])) for key in d.keys()]
             maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()]
             utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria, sign_utility), axis = 1)
