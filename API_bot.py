@@ -117,14 +117,14 @@ def response():
         for word in name_cheap[1:]:
             speech += "," + word
         speech += "!"
-    # response = {
-    # 'speech': speech,
-    # 'displayText' : speech,
-    # 'data':None,
-    # 'contextOut' : None,
-    # 'source':'',
-    # 'followupEvent' : None
-    # }
+    response = {
+    'speech': speech,
+    'displayText' : speech,
+    'data':None,
+    'contextOut' : None,
+    'source':'',
+    'followupEvent' : None
+    }
     send_message(m['sender_id'], speech)
 
     return jsonify(response)
