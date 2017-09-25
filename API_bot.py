@@ -15,8 +15,14 @@ import numpy as np
 import numbers
 import math
 
-def calculate_utility(weights, vector, mins_criteria, maxs_criteria):
-    utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
+#Fonction de calcul de l'éspérence d'utilité pour un ordinateur donné
+def calculate_utility(weights, vector, mins_criteria, maxs_criteria, sign_utility):
+    utility_vector = [0]*len(vector)
+    for i in range(len(vector)):
+        if sign_utility[i] == 1
+            utility_vector[i] = (weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i])
+        else : 
+            utility_vector[i] = (weights[i]/sum(weights))*(maxs_criteria - vector[i])/(maxs_criteria[i]-mins_criteria[i])
     utility = np.nansum(utility_vector)
     return utility
 
@@ -141,21 +147,22 @@ def response():
                 weight_autonomie = 0
                 weight_taille_ecran = 3
                 find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
-
-            elif 'type' in indicators and indicators['type'] != '':
+                d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
+                sign_utility = [1,1,1,1,1,-1,1,-1]
+            if 'type' in indicators and indicators['type'] != '':
                 weight_poids = 4
                 weight_autonomie = 4
                 weight_taille_ecran = 1
                 find_pc_gamer = pd.DataFrame(list(computers.find({'type':'portable'})))
-            else :
-                find_pc_gamer = pd.DataFrame(list(computers.find({})))
+                d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
+                sign_utility = [-1,1,1,1,1,-1,1,-1]
 
             weights = [weight_taille_ecran,weight_processeur,weight_RAM,weight_stockage,weight_carte_graphique,weight_poids,weight_autonomie,weight_prix]
 
-            d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
+            d = [1,1,1]
             mins_criteria = [np.nansum(min(d[str(key)])) for key in d.keys()]
             maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()]
-            utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria), axis = 1)
+            utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria, sign_utility), axis = 1)
             find_pc_gamer['global_utility'] = utilities
             name_best = find_pc_gamer[find_pc_gamer['global_utility'] == max(utilities)]['nom']
             name_best = list(name_best)
