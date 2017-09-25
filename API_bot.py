@@ -125,7 +125,7 @@ def response():
                     maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()]
                     print(mins_criteria)
                     print(maxs_criteria)
-                    utilities = d.apply(lambda x : calculate_utility(weights,x, mins_criteria, maxs_criteria), axis = 1)
+                    utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria), axis = 1)
                     find_pc_gamer['global_utility'] = utilities
                     print(find_pc_gamer)
                     speech = 'MacBook for sure!'
