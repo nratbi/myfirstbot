@@ -116,7 +116,6 @@ def response():
 
             if 'game' in indicators and indicators['game'] != '':
                 weight_taille_ecran = 3
-                weight_
                 weights = [3,5,3,3,5,0,0,4]
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
