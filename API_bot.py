@@ -131,6 +131,7 @@ def response():
                     list_names = name_best[0]
                     for item in name_best[1:]:
                         list_names += ', '+item
+                    print(list_names)
                     if len(list_names) == 1:
                         speech = "Humm..Je vois. J'ai l'ordinateur qu'il vous faut : "+list_names+" !"
                     else : 
