@@ -115,6 +115,7 @@ def response():
             if 'game' in indicators and indicators['game'] != '':
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                     find_pc_gamer = list(computers.find({'type':'fixe'}))
+                    speech = 'MacBook for sure!'
                     print(find_pc_gamer)
                 elif 'type' in indicators and indicators['type'] != '':
                     find_pc_gamer = computers.find({'type':'portable'})
