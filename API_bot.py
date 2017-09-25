@@ -89,9 +89,8 @@ def webhook():
 def response():
 
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
-    computers = client["heroku_fkfhqw1w"].computers
+    computers = client["heroku_fkfhqw1w"].example_computers_table
     m = request.get_json()
-    print(m)
     speech = ''
 
     if m['result']['action'] == 'input.welcome':
@@ -103,7 +102,7 @@ def response():
         speech = 'Mac Book for sure!'
 
     if 'game' in indicators and indicators['game'] != '':
-        find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
+        find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur','$carte_graphique']}}},{'$sort':SON([("gamer_rate", -1)])}])
         best_computers = {}
         i = 0
         find_pc_gamer = list(find_pc_gamer)
