@@ -116,6 +116,8 @@ def response():
                 speech = 'Mac Book for sure!'
 
             if 'game' in indicators and indicators['game'] != '':
+                weight_taille_ecran = 3
+                weight_
                 weights = [3,5,3,3,5,0,0,4]
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
@@ -129,7 +131,7 @@ def response():
                     list_names = name_best[0]
                     for item in name_best[1:]:
                         list_names += ', '+item
-                    if len(list_names) == 1:
+                    if len(name_best) == 1:
                         speech = "Humm..Je vois. J'ai l'ordinateur qu'il vous faut : "+list_names+" !"
                     else : 
                         speech = "Humm..Je vois. J'ai "+str(len(name_best))+" ordinateurs à vous proposer : "+list_names+" !" 
