@@ -19,7 +19,7 @@ import math
 def calculate_utility(weights, vector, mins_criteria, maxs_criteria, sign_utility):
     utility_vector = [0]*len(vector)
     for i in range(len(vector)):
-        if sign_utility[i] == 1
+        if sign_utility[i] == 1:
             utility_vector[i] = (weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i])
         else : 
             utility_vector[i] = (weights[i]/sum(weights))*(maxs_criteria - vector[i])/(maxs_criteria[i]-mins_criteria[i])
