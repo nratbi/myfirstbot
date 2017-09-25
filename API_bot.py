@@ -16,12 +16,8 @@ import numbers
 import math
 
 def calculate_utility(weights, vector, maxs_criteria, mins_criteria):
-    for i in range(len(vector)):
-        if math.isnan(vector[i]) :
-            vector[i] = 0
     utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
-    utility = sum(utility_vector)
-    print(utility_vector)
+    utility = np.nansum(utility_vector)
     return utility
 
 def send_message(recipient_id, message_text):
