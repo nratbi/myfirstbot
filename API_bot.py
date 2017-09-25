@@ -123,7 +123,7 @@ def response():
                     maxs_criteria = [alpha for alpha in maxs_criteria if isinstance(alpha, numbers.Number)]
                     print(mins_criteria)
                     print(maxs_criteria)
-                    d = find_pc_gamer['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']
+                    d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
                     utilities = d.apply(lambda x : calculate_utility(weights,x, mins_criteria, maxs_criteria))
                     find_pc_gamer['global_utility'] = utilities
                     print(find_pc_gamer)
