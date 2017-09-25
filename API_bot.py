@@ -118,8 +118,8 @@ def response():
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
                     d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
-                    mins_criteria = [min(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
-                    maxs_criteria = [max(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
+                    mins_criteria = [min(d[str(key)]) for key in d.keys()]
+                    maxs_criteria = [max(d[str(key)]) for key in d.keys()]
                     print(mins_criteria)
                     print(maxs_criteria)
                     # mins_criteria = [alpha for alpha in mins_criteria if isinstance(alpha, numbers.Number)]
