@@ -108,9 +108,8 @@ def response():
             
             indicators = m['result']['parameters']   
 
-
             if 'developper' in indicators and indicators['developper'] != '':
-                # speech = 'Mac Book for sure!'
+                speech = 'Mac Book for sure!'
 
             if 'game' in indicators and indicators['game'] != '':
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
