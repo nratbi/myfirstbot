@@ -97,45 +97,47 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].example_computers_table
     m = request.get_json()
-    print(m)
-    sender_id = m['sender_id']
-    speech = ''
+    if m:
+	    print(m)
+	    sender_id = m['sender_id']
+	    speech = ''
 
-    if m['result']['action'] == 'input.welcome':
-        speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quel en sera votre utilisation ?"
-    
-    indicators = m['result']['parameters']   
+	    if m['result']['action'] == 'input.welcome':
+	        speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quel en sera votre utilisation ?"
+	    
+	    indicators = m['result']['parameters']   
 
-    if 'developper' in indicators and indicators['developper'] != '':
-        speech = 'Mac Book for sure!'
+	    if 'developper' in indicators and indicators['developper'] != '':
+	        speech = 'Mac Book for sure!'
 
-    if 'game' in indicators and indicators['game'] != '':
-        find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur','$carte_graphique']}}},{'$sort':SON([("gamer_rate", -1)])}])
-        best_computers = {}
-        i = 0
-        find_pc_gamer = list(find_pc_gamer)
-        while find_pc_gamer[i]['gamer_rate'] == find_pc_gamer[0]['gamer_rate']:
-            best_computers[i] = {}
-            best_computers[i]['nom'] = find_pc_gamer[i]['nom']
-            best_computers[i]['prix'] = find_pc_gamer[i]['prix']
-            i = i+1
-        best_cheap = min(best_computers[k]['prix'] for k in range(len(best_computers.keys())))
-        name_cheap = [best_computers[k]['nom'] for k in range(len(best_computers.keys())) if best_computers[k]['prix'] == best_cheap]
-        speech = "Hum..Je vois. J'ai l'ordinateur qu'il vous faut : "+name_cheap[0]
-        for word in name_cheap[1:]:
-            speech += "," + word
-        speech += "!"
-    response = {
-    'speech': speech,
-    'displayText' : speech,
-    'data':None,
-    'contextOut' : None,
-    'source':'',
-    'followupEvent' : None
-    }
-    send_message(sender_id, speech)
+	    if 'game' in indicators and indicators['game'] != '':
+	        find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur','$carte_graphique']}}},{'$sort':SON([("gamer_rate", -1)])}])
+	        best_computers = {}
+	        i = 0
+	        find_pc_gamer = list(find_pc_gamer)
+	        while find_pc_gamer[i]['gamer_rate'] == find_pc_gamer[0]['gamer_rate']:
+	            best_computers[i] = {}
+	            best_computers[i]['nom'] = find_pc_gamer[i]['nom']
+	            best_computers[i]['prix'] = find_pc_gamer[i]['prix']
+	            i = i+1
+	        best_cheap = min(best_computers[k]['prix'] for k in range(len(best_computers.keys())))
+	        name_cheap = [best_computers[k]['nom'] for k in range(len(best_computers.keys())) if best_computers[k]['prix'] == best_cheap]
+	        speech = "Hum..Je vois. J'ai l'ordinateur qu'il vous faut : "+name_cheap[0]
+	        for word in name_cheap[1:]:
+	            speech += "," + word
+	        speech += "!"
+	    response = {
+	    'speech': speech,
+	    'displayText' : speech,
+	    'data':None,
+	    'contextOut' : None,
+	    'source':'',
+	    'followupEvent' : None
+	    }
+	    send_message(sender_id, speech)
 
-    return jsonify(response)
+    	return jsonify(response)
+    return 'Empty request'
 
 
 if __name__ == '__main__':
