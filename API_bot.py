@@ -144,9 +144,8 @@ def response():
             if 'prix' in indicators and indicators['prix'] != '':
                 weight_prix = 5 #si formulation du besoin d'un ordinateur pas cher => poids max = 5
             else : 
-                weight_prix = 2.5
-            #Il peut y avoir un troisième cas où l'individu est financièrement aisé (par exemple ici c'est le cas : ingénieur) 
-            # auquel cas on aurait un poids négligeable mais par soucis de simplification on ne considérera pas ce cas ici
+                weight_prix = 2.5   #Il peut y avoir un troisième cas où l'individu est financièrement aisé (par exemple ici c'est le cas : ingénieur) 
+                                    # auquel cas on aurait un poids négligeable mais par soucis de simplification on ne considérera pas ce cas ici
 
             #Cas du gamer
             if 'game' in indicators and indicators['game'] != '':
@@ -155,6 +154,7 @@ def response():
                 weight_stockage = 3 #critère intéressant si l'individu doit installer des jeux volumineux mais pas de formulation explicite 
                 weight_carte_graphique = 5 #formulation explicite + profil gamer => poids max = 5
                 
+            #Cas ordinateur de bureau
             if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                 weight_poids = 0 #aucun intérêt car pc fixe => poids nul
                 weight_autonomie = 0 #aucun intérêt car pc fixe => poids nul
@@ -162,6 +162,8 @@ def response():
                 find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'}))) #filtrage présélectif en ne gardant que les ordinateurs fixes présents dans la base
                 d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
                 sign_utility = [1,1,1,1,1,-1,1,-1] # liste permettant de distinguer les préférences croissantes et décroissantes
+            
+            #Cas ordinateur fixe
             if 'type' in indicators and indicators['type'] != '':
                 weight_poids = 4 #très intéressant pour les laptop => poids = 4
                 weight_autonomie = 4 #très intéressant pour les laptop => poids = 4
