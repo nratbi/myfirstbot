@@ -116,8 +116,14 @@ def response():
 
             if 'game' in indicators and indicators['game'] != '':
                 weight_taille_ecran = 3
+                weight_processeur = 5
+                weight_RAM = 3
+                weight_stockage = 3
+                weight_carte_graphique = 5
                 weights = [3,5,3,3,5,0,0,4]
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
+                    weight_poids = 0
+                    weight_autonomie = 0
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
                     d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
                     mins_criteria = [np.nansum(min(d[str(key)])) for key in d.keys()]
