@@ -91,6 +91,7 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].example_computers_table
     m = request.get_json()
+    sender_id = m['sender_id']
     speech = ''
 
     if m['result']['action'] == 'input.welcome':
@@ -125,7 +126,7 @@ def response():
     'source':'',
     'followupEvent' : None
     }
-    send_message(m['sender_id'], speech)
+    send_message(sender_id, speech)
 
     return jsonify(response)
 
