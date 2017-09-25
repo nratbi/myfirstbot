@@ -99,10 +99,10 @@ def response():
     
     indicators = m['result']['parameters']   
 
-    if 'developper' in indicators:
+    if 'developper' in indicators and indicators['developper'] != '':
         speech = 'Mac Book for sure!'
 
-    if 'game' in indicators:
+    if 'game' in indicators and indicators['game'] != '':
         find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur_rate','$carte_graphique_rate']}}},{'$sort':SON([("gamer_rate", -1)])}])
         best_computers = {}
         i = 0
