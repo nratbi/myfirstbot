@@ -1,5 +1,6 @@
  #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
+from __future__ import division
 from flask import jsonify, request, Flask
 from flask import Request
 import os
@@ -9,6 +10,11 @@ from flask import Response
 import sys
 import json
 import requests
+
+def calculate_utility(weights, vector, maxs_criteria, mins_criteria):
+	utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
+	utility = sum(utility_vector)
+	return utility
 
 def send_message(recipient_id, message_text):
 
@@ -91,6 +97,7 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].example_computers_table
     m = request.get_json()
+    print(m)
     sender_id = m['sender_id']
     speech = ''
 
