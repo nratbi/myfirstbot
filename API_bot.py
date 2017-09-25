@@ -115,8 +115,13 @@ def response():
             if 'game' in indicators and indicators['game'] != '':
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
-                    speech = 'MacBook for sure!'
+                    weights = [3,5,3,3,5,0,0,4]
+                    mins_criteria = [min(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
+                    maxs_criteria = [max(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
+                    utilities = find_pc_gamer.apply(lambda x : calculate_utility(weights,x, mins_criteria, maxs_criteria))
+                    find_pc_gamer['global_utility'] = utilities
                     print(find_pc_gamer)
+                    speech = 'MacBook for sure!'
                 elif 'type' in indicators and indicators['type'] != '':
                     find_pc_gamer = computers.find({'type':'portable'})
                     speech = 'Youpi!'
