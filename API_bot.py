@@ -15,7 +15,7 @@ import numpy as np
 import numbers
 
 def calculate_utility(weights, vector, maxs_criteria, mins_criteria):
-    utility_vector = [(weights[i]/sum(weights))*(vector[i]-mins_criteria[i])/(maxs_criteria[i]-mins_criteria[i]) for i in range(len(vector))]
+    utility_vector = [(weights[i]/sum(weights))*(vector[i]-np.nansum(mins_criteria[i]))/(np.nansum(maxs_criteria[i])-np.nansum(mins_criteria[i])) for i in range(len(vector))]
     utility = np.nansum(utility_vector)
     return utility
 
