@@ -110,15 +110,14 @@ def response():
                 speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quelle en sera votre utilisation ? Recherchez-vous un ordinateur fixe ou portable ?"
             
             indicators = m['result']['parameters']   
-            weight_taille_ecran = 0
-            weight_processeur = 0
-            weight_RAM = 0
-            weight_stockage = 0
-            weight_carte_graphique = 0
-            weight_prix = 0
-            weight_poids = 0
-            weight_autonomie = 0
-            weights = [weight_taille_ecran,weight_processeur,weight_RAM,weight_stockage,weight_carte_graphique,weight_poids,weight_autonomie,weight_prix]
+            weight_taille_ecran = 1
+            weight_processeur = 1
+            weight_RAM = 1
+            weight_stockage = 1
+            weight_carte_graphique = 1
+            weight_prix = 1
+            weight_poids = 1
+            weight_autonomie = 1
 
             if 'developper' in indicators and indicators['developper'] != '':
                 speech = 'Mac Book for sure!'
@@ -136,6 +135,7 @@ def response():
             if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                 weight_poids = 0
                 weight_autonomie = 0
+                weights = [weight_taille_ecran,weight_processeur,weight_RAM,weight_stockage,weight_carte_graphique,weight_poids,weight_autonomie,weight_prix]
                 print(weights)
                 find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
                 d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
