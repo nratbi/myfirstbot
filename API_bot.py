@@ -114,7 +114,7 @@ def response():
                 speech = 'Mac Book for sure!'
 
             if 'game' in indicators and indicators['game'] != '':
-                weights = [3,0,5,3,0,4,5,3]
+                weights = [3,5,3,3,5,0,0,4]
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
                     find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'})))
                     mins_criteria = [min(find_pc_gamer[str(key)]) for key in find_pc_gamer.keys()]
