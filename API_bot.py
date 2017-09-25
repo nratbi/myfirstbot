@@ -121,77 +121,82 @@ def response():
             if m['result']['action'] == 'input.welcome':
                 speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quelle en sera votre utilisation ? Recherchez-vous un ordinateur fixe ou portable ?"
             
-            #accès aux paramètres du message (cf API.ai)
-            indicators = m['result']['parameters'] 
-
-            #initialisation neutre des poids à affecter aux caractéristiques des machines : par défaut choix de 2.5 car valeur moyenne (max à 5)
-            weight_taille_ecran = 2.5
-            weight_processeur = 2.5
-            weight_RAM = 2.5
-            weight_stockage = 2.5
-            weight_carte_graphique = 2.5
-            weight_prix = 2.5
-            weight_poids = 2.5
-            weight_autonomie = 2.5
-
-            #Cas du développeur
-            if 'developper' in indicators and indicators['developper'] != '':
-                weight_RAM = 5 #formulation explicite du besoin de beaucoup de RAM => poids max = 5
-                weight_stockage = 5 #de même, formulation explicite => poids max = 5
-                weight_processeur = 2.5 #aucune formulation, mais critère intéressant => poids moyen = 2.5
-                weight_carte_graphique = 1 #sans grand intérêt vu le profil => poids min = 1
-
-            if 'prix' in indicators and indicators['prix'] != '':
-                weight_prix = 5 #si formulation du besoin d'un ordinateur pas cher => poids max = 5
-            else : 
-                weight_prix = 2.5   
-            #Il peut y avoir un troisième cas où l'individu est financièrement aisé (par exemple ici c'est le cas : ingénieur) 
-            # auquel cas on aurait un poids négligeable mais par soucis de simplification on ne considérera pas ce cas ici
-
-            #Cas du gamer
-            if 'game' in indicators and indicators['game'] != '':
-                weight_processeur = 5 #formulation explicite + profil gamer => poids max = 5
-                weight_RAM = 3 #intéressant mais pas de formulation explicite 
-                weight_stockage = 3 #critère intéressant si l'individu doit installer des jeux volumineux mais pas de formulation explicite 
-                weight_carte_graphique = 5 #formulation explicite + profil gamer => poids max = 5
+            elif m['result']['action'] == 'input.unknown':
+                speech = "Je n'ai pas saisi ce que tu as dit."
                 
-            #Cas ordinateur de bureau
-            if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
-                weight_poids = 0 #aucun intérêt car pc fixe => poids nul
-                weight_autonomie = 0 #aucun intérêt car pc fixe => poids nul
-                weight_taille_ecran = 4 #les ordinateurs de bureau sont généralement préférés avec de grands écrans  => poids  = 4
-                find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'}))) #filtrage présélectif en ne gardant que les ordinateurs fixes présents dans la base
-                d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
-                sign_utility = [1,1,1,1,1,-1,1,-1] # liste permettant de distinguer les préférences croissantes et décroissantes
-            
-            #Cas ordinateur fixe
-            if 'type' in indicators and indicators['type'] != '':
-                weight_poids = 4 #très intéressant pour les laptop => poids = 4
-                weight_autonomie = 4 #très intéressant pour les laptop => poids = 4
-                weight_taille_ecran = 4 #les ordinateurs portables sont généralement préférés avec de petits écrans  => poids  = 4
-                find_pc_gamer = pd.DataFrame(list(computers.find({'type':'portable'}))) #filtrage présélectif en ne gardant que les ordinateurs portables présents dans la base
-                d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
-                sign_utility = [-1,1,1,1,1,-1,1,-1] #liste permettant de distinguer les préférences croissantes et décroissantes
+            else :
 
-            weights = [weight_taille_ecran,weight_processeur,weight_RAM,weight_stockage,weight_carte_graphique,weight_poids,weight_autonomie,weight_prix] #liste contenant les poids pour les différentes variables
+                #accès aux paramètres du message (cf API.ai)
+                indicators = m['result']['parameters'] 
 
-            mins_criteria = [np.nansum(min(d[str(key)])) for key in d.keys()] #liste avec la plus petite valeur prise par chaque critère
-            maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()] #liste avec la plus grande valeur prise par chaque critère
-            utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria, sign_utility), axis = 1) #calcul de l'espérance d'utilié pour toutes les machines retenues
-            find_pc_gamer['global_utility'] = utilities #ajout d'une colonne avec les scores d'utilité globaux
-            print(find_pc_gamer) 
-            name_best = find_pc_gamer[find_pc_gamer['global_utility'] == max(utilities)]['nom'] #récupération des noms des machines avec l'espérance d'utilité la plus élevée
-            name_best = list(name_best)
-            list_names = name_best[0]
-            for item in name_best[1:]:
-                list_names += ', '+item
+                #initialisation neutre des poids à affecter aux caractéristiques des machines : par défaut choix de 2.5 car valeur moyenne (max à 5)
+                weight_taille_ecran = 2.5
+                weight_processeur = 2.5
+                weight_RAM = 2.5
+                weight_stockage = 2.5
+                weight_carte_graphique = 2.5
+                weight_prix = 2.5
+                weight_poids = 2.5
+                weight_autonomie = 2.5
 
-            #si un seul ordinateur
-            if len(name_best) == 1:
-                speech = "Humm..Je vois. J'ai l'ordinateur qu'il vous faut : "+list_names+" !"
-            #si plusieurs ordinateurs
-            else : 
-                speech = "Humm..Je vois. J'ai "+str(len(name_best))+" ordinateurs à vous proposer : "+list_names+" !" 
+                #Cas du développeur
+                if 'developper' in indicators and indicators['developper'] != '':
+                    weight_RAM = 5 #formulation explicite du besoin de beaucoup de RAM => poids max = 5
+                    weight_stockage = 5 #de même, formulation explicite => poids max = 5
+                    weight_processeur = 2.5 #aucune formulation, mais critère intéressant => poids moyen = 2.5
+                    weight_carte_graphique = 1 #sans grand intérêt vu le profil => poids min = 1
+
+                if 'prix' in indicators and indicators['prix'] != '':
+                    weight_prix = 5 #si formulation du besoin d'un ordinateur pas cher => poids max = 5
+                else : 
+                    weight_prix = 2.5   
+                #Il peut y avoir un troisième cas où l'individu est financièrement aisé (par exemple ici c'est le cas : ingénieur) 
+                # auquel cas on aurait un poids négligeable mais par soucis de simplification on ne considérera pas ce cas ici
+
+                #Cas du gamer
+                if 'game' in indicators and indicators['game'] != '':
+                    weight_processeur = 5 #formulation explicite + profil gamer => poids max = 5
+                    weight_RAM = 3 #intéressant mais pas de formulation explicite 
+                    weight_stockage = 3 #critère intéressant si l'individu doit installer des jeux volumineux mais pas de formulation explicite 
+                    weight_carte_graphique = 5 #formulation explicite + profil gamer => poids max = 5
+                    
+                #Cas ordinateur de bureau
+                if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
+                    weight_poids = 0 #aucun intérêt car pc fixe => poids nul
+                    weight_autonomie = 0 #aucun intérêt car pc fixe => poids nul
+                    weight_taille_ecran = 4 #les ordinateurs de bureau sont généralement préférés avec de grands écrans  => poids  = 4
+                    find_pc_gamer = pd.DataFrame(list(computers.find({'type':'fixe'}))) #filtrage présélectif en ne gardant que les ordinateurs fixes présents dans la base
+                    d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
+                    sign_utility = [1,1,1,1,1,-1,1,-1] # liste permettant de distinguer les préférences croissantes et décroissantes
+                
+                #Cas ordinateur fixe
+                if 'type' in indicators and indicators['type'] != '':
+                    weight_poids = 4 #très intéressant pour les laptop => poids = 4
+                    weight_autonomie = 4 #très intéressant pour les laptop => poids = 4
+                    weight_taille_ecran = 4 #les ordinateurs portables sont généralement préférés avec de petits écrans  => poids  = 4
+                    find_pc_gamer = pd.DataFrame(list(computers.find({'type':'portable'}))) #filtrage présélectif en ne gardant que les ordinateurs portables présents dans la base
+                    d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
+                    sign_utility = [-1,1,1,1,1,-1,1,-1] #liste permettant de distinguer les préférences croissantes et décroissantes
+
+                weights = [weight_taille_ecran,weight_processeur,weight_RAM,weight_stockage,weight_carte_graphique,weight_poids,weight_autonomie,weight_prix] #liste contenant les poids pour les différentes variables
+
+                mins_criteria = [np.nansum(min(d[str(key)])) for key in d.keys()] #liste avec la plus petite valeur prise par chaque critère
+                maxs_criteria = [np.nansum(max(d[str(key)])) for key in d.keys()] #liste avec la plus grande valeur prise par chaque critère
+                utilities = d.apply(lambda x : calculate_utility(weights,list(x), mins_criteria, maxs_criteria, sign_utility), axis = 1) #calcul de l'espérance d'utilié pour toutes les machines retenues
+                find_pc_gamer['global_utility'] = utilities #ajout d'une colonne avec les scores d'utilité globaux
+                print(find_pc_gamer) 
+                name_best = find_pc_gamer[find_pc_gamer['global_utility'] == max(utilities)]['nom'] #récupération des noms des machines avec l'espérance d'utilité la plus élevée
+                name_best = list(name_best)
+                list_names = name_best[0]
+                for item in name_best[1:]:
+                    list_names += ', '+item
+
+                #si un seul ordinateur
+                if len(name_best) == 1:
+                    speech = "Humm..Je vois. J'ai l'ordinateur qu'il vous faut : "+list_names+" !"
+                #si plusieurs ordinateurs
+                else : 
+                    speech = "Humm..Je vois. J'ai "+str(len(name_best))+" ordinateurs à vous proposer : "+list_names+" !" 
 
             #envoi réponse lorsqu'un test est effectué sur API.ai (aucun rapport avec messenger)
             response = {
