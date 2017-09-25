@@ -75,12 +75,12 @@ def webhook():
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
                         send_json = r.json()
-                        send_json['sender_id'] = sender_id
-                        a = requests.get('https://graph.facebook.com/v2.10/'+sender_id,params=params2,headers=headers2)
-                        if a:
-                            send_json['first_name'] = a.json()['first_name']
-                            send_json['last_name'] = a.json()['last_name']
-                        r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = send_json)
+                    send_json['sender_id'] = sender_id
+                    a = requests.get('https://graph.facebook.com/v2.10/'+sender_id,params=params2,headers=headers2)
+                    if a:
+                        send_json['first_name'] = a.json()['first_name']
+                        send_json['last_name'] = a.json()['last_name']
+                    r2 = requests.post('https://myfirstbot11.herokuapp.com/response/', json = send_json)
 
     return "ok", 200
 
@@ -117,14 +117,14 @@ def response():
         for word in name_cheap[1:]:
             speech += "," + word
         speech += "!"
-    response = {
-    'speech': speech,
-    'displayText' : speech,
-    'data':None,
-    'contextOut' : None,
-    'source':'',
-    'followupEvent' : None
-    }
+    # response = {
+    # 'speech': speech,
+    # 'displayText' : speech,
+    # 'data':None,
+    # 'contextOut' : None,
+    # 'source':'',
+    # 'followupEvent' : None
+    # }
     send_message(m['sender_id'], speech)
 
     return jsonify(response)
