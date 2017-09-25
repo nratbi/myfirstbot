@@ -114,11 +114,12 @@ def response():
 
             if 'game' in indicators and indicators['game'] != '':
                 if 'pc_fixe' in indicators and indicators['pc_fixe'] != '':
-                    find_pc_gamer = computers.find({'type':'fixe'})
+                    find_pc_gamer = list(computers.find({'type':'fixe'}))
+                    print(find_pc_gamer)
                 elif 'type' in indicators and indicators['type'] != '':
                     find_pc_gamer = computers.find({'type':'portable'})
                 else :
-                    speech = "C'est noté ! Euh..mais attendez, vous ne m'avez toujours pas dis : ordinateur fixe ou portable?"
+                    find_pc_gamer = computers.find({})
 
                 # find_pc_gamer = computers.aggregate([{"$addFields":{'gamer_rate':{'$add' :['$processeur','$carte_graphique']}}},{'$sort':SON([("gamer_rate", -1)])}])
                 # best_computers = {}
