@@ -91,6 +91,7 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].computers
     m = request.get_json()
+    print(m)
     speech = ''
 
     if m['result']['action'] == 'input.welcome':
