@@ -77,11 +77,20 @@ def webhook():
                     "Content-Type": "application/json",
                     "Authorization" : "Bearer 4c6588d427284768823a5520af36c901"
                     }
+                    # content = json.dumps({
+                    # "query": message_text,
+                    # "timezone": "Europe/Paris",
+                    # "lang": "fr",
+                    # "sessionId": "599fd47b-0f04-4e10-a488-cb9803ba538f"
+                    # })
+
                     content = json.dumps({
-                    "query": message_text,
-                    "timezone": "Europe/Paris",
-                    "lang": "fr",
-                    "sessionId": "599fd47b-0f04-4e10-a488-cb9803ba538f"
+                    'speech': message_text,
+                    'displayText' : message_text,
+                    'data':None,
+                    'contextOut' : None,
+                    'source':'',
+                    'followupEvent' : None
                     })
                     params2 = {
                     "access_token": "EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
