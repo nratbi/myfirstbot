@@ -71,6 +71,7 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # le facebook ID de l'émetteur
                     recipient_id = messaging_event["recipient"]["id"]  # l'ID du récépteur, en l'occurrence mon ID
                     message_text = messaging_event["message"]["text"]  # le contenu du message
+
                     #requête vers API.ai pour récupérer l'action et les paramètres nécessaires
                     headers = {
                     "Content-Type": "application/json",
@@ -90,7 +91,6 @@ def webhook():
                     "Content-Type": "application/json"
                     }   
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
-                    print(r.content)
                     if r:
                         send_json = r.json()
                         send_json['sender_id'] = sender_id #ajout de l'ID de l'émetteur pour lui envoyer la réponse après traitement
@@ -113,6 +113,7 @@ def response():
     computers = client["heroku_fkfhqw1w"].example_computers_table # accès à la table contenant les données sur les ordinateurs
     m = request.get_json() #récupération du contenu de la requête reçue
     if m:
+        print(m)
         if 'sender_id' in m:
             sender_id = m['sender_id']
             speech = ''
