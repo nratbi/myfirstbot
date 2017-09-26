@@ -124,7 +124,7 @@ def response():
                     speech = "Bonjour , je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quelle en sera votre utilisation ? Recherchez-vous un ordinateur fixe ou portable ?"
             #si Fallback
             elif m['result']['action'] == 'input.unknown':
-                speech = "Je n'ai pas saisi ce que tu as dit."
+                speech = "Je n'ai pas saisi ce que vous avez dit. Veuillez suivre le scénario fourni !"
 
             else :
 
