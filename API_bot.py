@@ -212,6 +212,14 @@ def response():
             send_message(sender_id, speech)
 
             return jsonify(response)
+    response = {
+        'speech': '',
+        'displayText' : '',
+        'data':None,
+        'contextOut' : None,
+        'source':'',
+        'followupEvent' : None
+    }
     return 'Empty request'
 
 
