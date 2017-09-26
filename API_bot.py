@@ -90,7 +90,7 @@ def webhook():
                     headers2 = {
                     "Content-Type": "application/json"
                     }              
-                    r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
+                    r = requests.post('http://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
                         send_json = r.json()
                         send_json['sender_id'] = sender_id #ajout de l'ID de l'émetteur pour lui envoyer la réponse après traitement
