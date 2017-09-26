@@ -113,10 +113,9 @@ def response():
     computers = client["heroku_fkfhqw1w"].example_computers_table # accès à la table contenant les données sur les ordinateurs
     m = request.get_json() #récupération du contenu de la requête reçue
     if m:
-        print(m)
+        speech = ''
         if 'sender_id' in m:
             sender_id = m['sender_id']
-            speech = ''
             #si message de bienvenue
             if m['result']['action'] == 'input.welcome':
                 if 'first_name' in m and 'last_name' in m:
@@ -201,21 +200,23 @@ def response():
                 else : 
                     speech = "Humm..Je vois. J'ai "+str(len(name_best))+" ordinateurs à vous proposer : "+list_names+" !" 
 
-            #envoi réponse lorsqu'un test est effectué sur API.ai (aucun rapport avec messenger)
-            response = {
-            'speech': speech,
-            'displayText' : speech,
-            'data':None,
-            'contextOut' : None,
-            'source':'',
-            'followupEvent' : None
-            }
 
             #envoi du message de réponse
             send_message(sender_id, speech)
 
-            return jsonify(response)
-    return 'Empty request'
+        #envoi réponse lorsqu'un test est effectué sur API.ai (aucun rapport avec messenger)
+        response = {
+        'speech': speech,
+        'displayText' : speech,
+        'data':None,
+        'contextOut' : None,
+        'source':'',
+        'followupEvent' : None
+        }
+
+        return jsonify(response)
+    else:
+        return 'Empty Request', 500
 
 
 if __name__ == '__main__':
