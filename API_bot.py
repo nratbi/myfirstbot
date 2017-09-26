@@ -87,10 +87,9 @@ def webhook():
                     "access_token": "EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
                     }
                     headers2 = {
-                    "Content-Type": "application/json",
-                    "Authorization" : "Bearer 4c6588d427284768823a5520af36c901"
+                    "Content-Type": "application/json"
                     }              
-                    r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
+                    r = requests.post('http://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     print(r.content)
                     if r:
                         send_json = r.json()
