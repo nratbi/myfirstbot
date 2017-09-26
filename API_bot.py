@@ -89,7 +89,7 @@ def webhook():
                     headers2 = {
                     "Content-Type": "application/json"
                     }              
-                    r = requests.post('http://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
+                    r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     print(r.content)
                     if r:
                         send_json = r.json()
