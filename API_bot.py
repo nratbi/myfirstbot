@@ -71,7 +71,6 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # le facebook ID de l'émetteur
                     recipient_id = messaging_event["recipient"]["id"]  # l'ID du récépteur, en l'occurrence mon ID
                     message_text = messaging_event["message"]["text"]  # le contenu du message
-
                     #requête vers API.ai pour récupérer l'action et les paramètres nécessaires
                     headers = {
                     "Content-Type": "application/json",
@@ -89,8 +88,8 @@ def webhook():
                     }
                     headers2 = {
                     "Content-Type": "application/json"
-                    }              
-                    r = requests.get('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
+                    }   
+                    r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     print(r.content)
                     if r:
                         send_json = r.json()
