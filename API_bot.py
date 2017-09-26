@@ -96,7 +96,6 @@ def webhook():
                         send_json['sender_id'] = sender_id #ajout de l'ID de l'émetteur pour lui envoyer la réponse après traitement
                         #requête pour récupérer le prénom et le nom de l'émetteur
                         a = requests.get('https://graph.facebook.com/v2.10/'+sender_id,params=params2,headers=headers2)
-                        print(a.content)
                         if a:
                             send_json['first_name'] = a.json()['first_name'] # ajout du prénom
                             send_json['last_name'] = a.json()['last_name'] #ajout du nom
@@ -119,8 +118,10 @@ def response():
             speech = ''
             #si message de bienvenue
             if m['result']['action'] == 'input.welcome':
-                speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quelle en sera votre utilisation ? Recherchez-vous un ordinateur fixe ou portable ?"
-            
+                if 'first_name' in m and 'last_name' in m:
+                    speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quelle en sera votre utilisation ? Recherchez-vous un ordinateur fixe ou portable ?"
+                else : 
+                    speech = "Bonjour , je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quelle en sera votre utilisation ? Recherchez-vous un ordinateur fixe ou portable ?"
             #si Fallback
             elif m['result']['action'] == 'input.unknown':
                 speech = "Je n'ai pas saisi ce que tu as dit."
