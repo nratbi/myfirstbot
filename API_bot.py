@@ -88,6 +88,7 @@ def webhook():
                     }
                     headers2 = {
                     "Content-Type": "application/json"
+                    "Authorization" : "Bearer 4c6588d427284768823a5520af36c901"
                     }              
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     print(r.content)
