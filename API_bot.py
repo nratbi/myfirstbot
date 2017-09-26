@@ -198,28 +198,20 @@ def response():
                 else : 
                     speech = "Humm..Je vois. J'ai "+str(len(name_best))+" ordinateurs à vous proposer : "+list_names+" !" 
 
-            #envoi réponse lorsqu'un test est effectué sur API.ai (aucun rapport avec messenger)
-            response = {
-            'speech': speech,
-            'displayText' : speech,
-            'data':None,
-            'contextOut' : None,
-            'source':'',
-            'followupEvent' : None
-            }
+            	#envoi réponse lorsqu'un test est effectué sur API.ai (aucun rapport avec messenger)
+            	response = {
+            	'speech': speech,
+            	'displayText' : speech,
+            	'data':None,
+            	'contextOut' : None,
+            	'source':'',
+            	'followupEvent' : None
+            	}
 
             #envoi du message de réponse
             send_message(sender_id, speech)
 
             return jsonify(response)
-    response = {
-        'speech': '',
-        'displayText' : '',
-        'data':None,
-        'contextOut' : None,
-        'source':'',
-        'followupEvent' : None
-    }
     return 'Empty request'
 
 
