@@ -116,7 +116,7 @@ def response():
         if 'sender_id' in m:
             sender_id = m['sender_id']
             speech = ''
-
+            print(m)
             #si message de bienvenue
             if m['result']['action'] == 'input.welcome':
                 speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quelle en sera votre utilisation ? Recherchez-vous un ordinateur fixe ou portable ?"
