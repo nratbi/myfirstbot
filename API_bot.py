@@ -81,7 +81,6 @@ def webhook():
                     "query": message_text,
                     "timezone": "Europe/Paris",
                     "lang": "fr",
-                    "contexts" : [],
                     "sessionId": "599fd47b-0f04-4e10-a488-cb9803ba538f"
                     })
                     params2 = {
