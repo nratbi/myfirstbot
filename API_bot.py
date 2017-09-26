@@ -82,7 +82,7 @@ def webhook():
                     "timezone": "Europe/Paris",
                     "lang": "fr",
                     "contexts" : [],
-                    "sessionId": "c2f3eb24-8ed5-42c3-9ec1-ee51f0bb607c"
+                    "sessionId": "599fd47b-0f04-4e10-a488-cb9803ba538f"
                     })
                     params2 = {
                     "access_token": "EAAXFoXg4V2oBANtEWids8btXLLN3xMfu2xkZBoaQqwmkSZCheKJZCbZABG8Cmb1hamD0ZCZAK5DZCLYQmU2eXnsGB6pAJ3TZATvFjGczUeCwEsJvFXJujrw7DtF9CZBwPk9tixFUJ134Fj5HrgMtBOlw8KnHsst46IjTB5kv4XolZB9QZDZD"
@@ -90,7 +90,7 @@ def webhook():
                     headers2 = {
                     "Content-Type": "application/json"
                     }              
-                    r = requests.post('http://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
+                    r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
                     if r:
                         send_json = r.json()
                         send_json['sender_id'] = sender_id #ajout de l'ID de l'émetteur pour lui envoyer la réponse après traitement
