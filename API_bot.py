@@ -91,6 +91,7 @@ def webhook():
                     "Content-Type": "application/json"
                     }              
                     r = requests.post('https://api.api.ai/v1/query?v=20150910',headers=headers, data=content)
+                    print(r.content)
                     if r:
                         send_json = r.json()
                         send_json['sender_id'] = sender_id #ajout de l'ID de l'émetteur pour lui envoyer la réponse après traitement
@@ -116,7 +117,6 @@ def response():
         if 'sender_id' in m:
             sender_id = m['sender_id']
             speech = ''
-            print(m)
             #si message de bienvenue
             if m['result']['action'] == 'input.welcome':
                 speech = 'Bonjour '+m['first_name']+' '+m['last_name']+", je suis un bot créé par Nabil. J'ai été conçu pour vous aider à trouver votre ordinateur idéal. Quelle en sera votre utilisation ? Recherchez-vous un ordinateur fixe ou portable ?"
