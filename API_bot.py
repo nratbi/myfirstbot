@@ -146,7 +146,7 @@ def response():
                 weight_poids = 2.5
                 weight_autonomie = 2.5
 
-                if m['contexts'][0]['name'] == 'fixe':
+                if m['result']['contexts'][0]['name'] == 'fixe':
                     print('Hana 3awtani 3la lcontext ki dayr ca va')
                 #Cas du développeur
                 if 'developper' in indicators and indicators['developper'] != '':
