@@ -112,7 +112,6 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].example_computers_table # accès à la table contenant les données sur les ordinateurs
     m = request.get_json() #récupération du contenu de la requête reçue
-    print(m)
     if m:
         speech = ''
         if 'sender_id' in m:
@@ -147,6 +146,8 @@ def response():
                 weight_poids = 2.5
                 weight_autonomie = 2.5
 
+                if m['context'][0]['name'] == 'fixe':
+                    print('Hana 3awtani 3la lcontext ki dayr ca va')
                 #Cas du développeur
                 if 'developper' in indicators and indicators['developper'] != '':
                     weight_RAM = 5 #formulation explicite du besoin de beaucoup de RAM => poids max = 5
