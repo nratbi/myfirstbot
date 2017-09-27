@@ -146,8 +146,6 @@ def response():
                 weight_poids = 2.5
                 weight_autonomie = 2.5
 
-                if m['result']['contexts'][0]['name'] == 'fixe':
-                    print('Hana 3awtani 3la lcontext ki dayr ca va')
                 #Cas du développeur
                 if 'developper' in indicators and indicators['developper'] != '':
                     weight_RAM = 5 #formulation explicite du besoin de beaucoup de RAM => poids max = 5
