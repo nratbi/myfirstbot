@@ -112,6 +112,7 @@ def response():
     client = MongoClient("mongodb://heroku_fkfhqw1w:mtkhac4bj08bu2qs02gm0i4s79@ds147964.mlab.com:47964/heroku_fkfhqw1w")
     computers = client["heroku_fkfhqw1w"].example_computers_table # accès à la table contenant les données sur les ordinateurs
     m = request.get_json() #récupération du contenu de la requête reçue
+    print(m)
     if m:
         speech = ''
         if 'sender_id' in m:
@@ -126,11 +127,10 @@ def response():
             #si remerciement
             elif m['result']['action'] == 'input.thanks':
                 speech = 'Tout le plaisir est pour moi ! :)'
-                
+
             #si Fallback
             elif m['result']['action'] == 'input.unknown':
                 speech = "Je n'ai pas saisi ce que vous avez dit. Veuillez suivre le scénario fourni !"
-
 
             else :
 
