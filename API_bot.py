@@ -171,7 +171,7 @@ def response():
                     d = find_pc_gamer[['ecran_taille (pouces)','processeur', 'RAM (Go)', 'stockage (To)', 'carte_graphique', 'poids (kg)','autonomie (h)', 'prix']]
                     sign_utility = [1,1,1,1,1,-1,1,-1] # liste permettant de distinguer les préférences croissantes et décroissantes
                 
-                #Cas ordinateur fixe
+                #Cas ordinateur portable
                 if 'type' in indicators and indicators['type'] != '':
                     weight_poids = 4 #très intéressant pour les laptop => poids = 4
                     weight_autonomie = 4 #très intéressant pour les laptop => poids = 4
