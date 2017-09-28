@@ -1,1 +1,1 @@
-web: gunicorn API_bot:app -p 0.0.0.0:$PORT —t 100
+web: gunicorn —t 100 API_bot:app -p 0.0.0.0:$PORT
