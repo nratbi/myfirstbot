@@ -213,10 +213,6 @@ def response():
         response = {
         'speech': speech,
         'displayText' : speech,
-        'data':None,
-        'contextOut' : None,
-        'source':'',
-        'followupEvent' : None
         }
 
         return jsonify(response)
