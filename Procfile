@@ -1,1 +1,1 @@
-web: gunicorn API_bot:app -p 0.0.0.0:$PORT
+web: gunicorn API_bot:app -p 0.0.0.0:$PORT -timeout 100
